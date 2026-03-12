@@ -19,180 +19,105 @@
 
 import fs from 'fs';
 import path from 'path';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
-import Header from '../components/sections/Header';
-import Footer from '../components/sections/Footer';
-import { allContent } from '../utils/local-content';
 
 const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif', '.svg']);
+const GALLERY_TILE_CLASSES = ['aspect-[4/5]', 'aspect-[3/4]', 'aspect-square', 'aspect-[5/4]'];
+const PHOTO_TILE_CLASSES = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]'];
 
 function folderToTitle(name) {
     return name
         .replace(/[-_]/g, ' ')
-        .replace(/\b\w/g, (c) => c.toUpperCase());
+        .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-// Placeholder — never actually used but keeps the linter happy
-const GALLERY_LOCATIONS = [
-    {
-        id: 'weddings',
-        title: 'Weddings',
-        description: 'Full-day documentary coverage',
-        cover: '/images/main-hero.jpg',
-        count: 6,
-        photos: [
-            { src: '/images/main-hero.jpg', alt: 'Wedding ceremony – soft winter light' },
-            { src: '/images/hero.svg', alt: 'Getting ready portraits' },
-            { src: '/images/hero2.svg', alt: 'First look in the garden' },
-            { src: '/images/hero3.svg', alt: 'Exchange of rings' },
-            { src: '/images/abstract-feature1.svg', alt: 'Reception table details' },
-            { src: '/images/abstract-feature2.svg', alt: 'First dance' },
-        ]
-    },
-    {
-        id: 'portraits',
-        title: 'Portraits',
-        description: 'Editorial warmth, honest light',
-        cover: '/images/hero2.svg',
-        count: 5,
-        photos: [
-            { src: '/images/hero2.svg', alt: 'Golden hour portrait' },
-            { src: '/images/hero3.svg', alt: 'Window-light studio portrait' },
-            { src: '/images/abstract-feature1.svg', alt: 'Outdoor natural light' },
-            { src: '/images/abstract-feature3.svg', alt: 'Couple portrait by water' },
-            { src: '/images/main-hero.jpg', alt: 'Lifestyle portrait – park session' },
-        ]
-    },
-    {
-        id: 'brand',
-        title: 'Brand Sessions',
-        description: 'Campaign and lifestyle imagery',
-        cover: '/images/abstract-feature1.svg',
-        count: 5,
-        photos: [
-            { src: '/images/abstract-feature1.svg', alt: 'Product flat lay' },
-            { src: '/images/abstract-feature2.svg', alt: 'Founder portrait at desk' },
-            { src: '/images/abstract-feature3.svg', alt: 'Behind-the-scenes workspace' },
-            { src: '/images/hero.svg', alt: 'Campaign lifestyle shot' },
-            { src: '/images/main-hero.jpg', alt: 'Brand editorial still' },
-        ]
-    },
-    {
-        id: 'elopements',
-        title: 'Elopements',
-        description: 'Intimate ceremonies, big feeling',
-        cover: '/images/hero3.svg',
-        count: 4,
-        photos: [
-            { src: '/images/hero3.svg', alt: 'Mountain elopement ceremony' },
-            { src: '/images/hero.svg', alt: 'Vows in the forest' },
-            { src: '/images/abstract-background.svg', alt: 'Scenic overlook portraits' },
-            { src: '/images/main-hero.jpg', alt: 'Intimate sunset portraits' },
-        ]
-    },
-    {
-        id: 'family',
-        title: 'Family',
-        description: 'Genuine moments, no forced smiles',
-        cover: '/images/abstract-feature2.svg',
-        count: 4,
-        photos: [
-            { src: '/images/abstract-feature2.svg', alt: 'Family on the beach' },
-            { src: '/images/abstract-feature3.svg', alt: 'Morning light at home' },
-            { src: '/images/hero2.svg', alt: 'Parents and newborn' },
-            { src: '/images/hero3.svg', alt: 'Kids in the garden' },
-        ]
-    },
-    {
-        id: 'travel',
-        title: 'Travel',
-        description: 'Destination sessions around the world',
-        cover: '/images/abstract-background.svg',
-        count: 4,
-        photos: [
-            { src: '/images/abstract-background.svg', alt: 'Golden hour in Tuscany' },
-            { src: '/images/hero.svg', alt: 'Urban street portraits – Tokyo' },
-            { src: '/images/abstract-feature1.svg', alt: 'Beach session – Maldives' },
-            { src: '/images/main-hero.jpg', alt: 'Landscape elopement – Iceland' },
-        ]
-    }
-];
+function fileToAlt(fileName) {
+    return fileName
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
-// ---------------------------------------------------------------------------
-// Lightbox component
-// ---------------------------------------------------------------------------
 function Lightbox({ photos, index, onClose, onPrev, onNext }) {
     const photo = photos[index];
     const hasPrev = index > 0;
     const hasNext = index < photos.length - 1;
 
     useEffect(() => {
-        const handle = (e) => {
-            if (e.key === 'ArrowRight' && hasNext) onNext();
-            if (e.key === 'ArrowLeft' && hasPrev) onPrev();
-            if (e.key === 'Escape') onClose();
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                onClose();
+            }
+            if (event.key === 'ArrowLeft' && hasPrev) {
+                onPrev();
+            }
+            if (event.key === 'ArrowRight' && hasNext) {
+                onNext();
+            }
         };
-        window.addEventListener('keydown', handle);
-        return () => window.removeEventListener('keydown', handle);
-    }, [index, hasPrev, hasNext, onClose, onPrev, onNext]);
 
-    // Prevent body scroll while lightbox is open
-    useEffect(() => {
         document.body.style.overflow = 'hidden';
-        return () => { document.body.style.overflow = ''; };
-    }, []);
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [hasNext, hasPrev, onClose, onNext, onPrev]);
+
+    if (!photo) {
+        return null;
+    }
 
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-            onClick={onClose}
-        >
-            {/* Counter */}
-            <span className="absolute top-5 left-1/2 -translate-x-1/2 text-white/60 text-sm select-none">
-                {index + 1} / {photos.length}
-            </span>
-
-            {/* Close */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 px-4" onClick={onClose}>
             <button
-                className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl leading-none select-none transition-colors"
+                type="button"
+                aria-label="Close photo"
+                className="absolute right-5 top-5 text-3xl text-white/75 transition hover:text-white"
                 onClick={onClose}
-                aria-label="Close lightbox"
             >
                 &times;
             </button>
-
-            {/* Prev */}
             <button
-                className={`absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors select-none ${!hasPrev ? 'opacity-20 cursor-default' : ''}`}
-                onClick={(e) => { e.stopPropagation(); if (hasPrev) onPrev(); }}
+                type="button"
                 aria-label="Previous photo"
                 disabled={!hasPrev}
+                className={`absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 px-4 py-3 text-2xl text-white transition ${
+                    hasPrev ? 'hover:bg-white/10' : 'cursor-default opacity-20'
+                }`}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    if (hasPrev) {
+                        onPrev();
+                    }
+                }}
             >
                 &#8592;
             </button>
-
-            {/* Image */}
-            <div
-                className="max-w-5xl max-h-[85vh] px-16"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    className="max-w-full max-h-[80vh] object-contain rounded shadow-2xl"
-                />
-                {photo.alt && (
-                    <p className="text-white/60 text-sm text-center mt-3 select-none">{photo.alt}</p>
-                )}
+            <div className="mx-auto flex max-h-[88vh] max-w-6xl flex-col items-center" onClick={(event) => event.stopPropagation()}>
+                <img src={photo.src} alt={photo.alt} className="max-h-[78vh] max-w-full rounded-sm object-contain shadow-2xl" />
+                <div className="mt-4 flex items-center gap-4 text-sm uppercase tracking-[0.3em] text-white/60">
+                    <span>{photo.alt}</span>
+                    <span>
+                        {index + 1} / {photos.length}
+                    </span>
+                </div>
             </div>
-
-            {/* Next */}
             <button
-                className={`absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors select-none ${!hasNext ? 'opacity-20 cursor-default' : ''}`}
-                onClick={(e) => { e.stopPropagation(); if (hasNext) onNext(); }}
+                type="button"
                 aria-label="Next photo"
                 disabled={!hasNext}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 px-4 py-3 text-2xl text-white transition ${
+                    hasNext ? 'hover:bg-white/10' : 'cursor-default opacity-20'
+                }`}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    if (hasNext) {
+                        onNext();
+                    }
+                }}
             >
                 &#8594;
             </button>
@@ -200,200 +125,163 @@ function Lightbox({ photos, index, onClose, onPrev, onNext }) {
     );
 }
 
-// ---------------------------------------------------------------------------
-// Main Portfolio page
-// ---------------------------------------------------------------------------
-export default function Portfolio({ site, galleries }) {
-    const [activeLocation, setActiveLocation] = useState(null);
+export default function Portfolio({ galleries }) {
+    const [activeGalleryId, setActiveGalleryId] = useState(null);
     const [lightboxIndex, setLightboxIndex] = useState(null);
 
-    const photos = activeLocation?.photos ?? [];
+    const activeGallery = useMemo(() => galleries.find((gallery) => gallery.id === activeGalleryId) ?? null, [activeGalleryId, galleries]);
+    const photos = activeGallery?.photos ?? [];
 
-    const openLightbox = useCallback((i) => setLightboxIndex(i), []);
+    const openGallery = useCallback((galleryId) => {
+        setActiveGalleryId(galleryId);
+        setLightboxIndex(null);
+    }, []);
+
+    const closeGallery = useCallback(() => {
+        setActiveGalleryId(null);
+        setLightboxIndex(null);
+    }, []);
+
     const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-    const prevPhoto = useCallback(() => setLightboxIndex((i) => Math.max(0, i - 1)), []);
-    const nextPhoto = useCallback(
-        () => setLightboxIndex((i) => Math.min(photos.length - 1, i + 1)),
-        [photos.length]
-    );
+    const showPrev = useCallback(() => setLightboxIndex((value) => Math.max(0, value - 1)), []);
+    const showNext = useCallback(() => setLightboxIndex((value) => Math.min(photos.length - 1, value + 1)), [photos.length]);
 
     return (
         <>
             <Head>
-                <title>Portfolio — Ziaozhao Photography</title>
-                <meta name="description" content="Browse wedding, portrait, brand, and travel photography by Ziaozhao." />
+                <title>Ziaozhao Photography</title>
+                <meta name="description" content="Gallery-based photography website with location folders and fullscreen image browsing." />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                {site?.favicon && <link rel="icon" href={site.favicon} />}
+                <link rel="icon" href="/images/favicon.svg" />
             </Head>
 
-            <div className="sb-page">
-                <div className="sb-base sb-default-base-layout">
-                    {site?.header && <Header {...site.header} />}
+            <div className="min-h-screen bg-[#7fc7bc] px-3 py-6 text-white sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl overflow-hidden border border-black/30 bg-[#2f2f31] shadow-[0_24px_60px_rgba(0,0,0,0.28)]">
+                    <div className="flex items-center gap-2 border-b border-black/20 bg-[#223740] px-5 py-4">
+                        <span className="h-3 w-3 rounded-full bg-[#ff6b57]" />
+                        <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+                        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                        <div className="ml-6 hidden h-10 flex-1 items-center rounded-full bg-[#cde4de]/85 px-4 text-sm text-[#4d7068] sm:flex">
+                            https://ziaozhao.photography
+                        </div>
+                    </div>
 
-                    <main className="bg-light min-h-screen">
-                        {/* ---- Page header ---- */}
-                        <div className="max-w-7xl mx-auto px-6 pt-14 pb-8">
-                            {activeLocation ? (
-                                <div className="flex items-center gap-4">
-                                    <button
-                                        onClick={() => { setActiveLocation(null); setLightboxIndex(null); }}
-                                        className="inline-flex items-center gap-2 text-sm text-dark/60 hover:text-dark transition-colors"
-                                        aria-label="Back to all galleries"
-                                    >
-                                        <span className="text-lg leading-none">&#8592;</span> All galleries
-                                    </button>
-                                    <span className="text-dark/30">/</span>
-                                    <h1 className="text-dark font-serif text-2xl">{activeLocation.title}</h1>
-                                    <span className="text-dark/40 text-sm">{activeLocation.photos.length} photos</span>
+                    <div className="border-b border-black/30 bg-gradient-to-b from-[#2a2a2d] to-[#1c1d20] px-6 py-6 text-center">
+                        <p className="text-xs uppercase tracking-[0.45em] text-white/45">Ziaozhao Photography</p>
+                        <h1 className="mt-2 font-serif text-3xl uppercase tracking-[0.2em] text-white sm:text-4xl">Photolux Style Gallery</h1>
+                        <p className="mt-3 text-sm uppercase tracking-[0.35em] text-white/50">
+                            {activeGallery ? activeGallery.title : 'Locations'}
+                        </p>
+                    </div>
+
+                    {!activeGallery ? (
+                        <main className="bg-[#3c3c3f] px-4 py-4 sm:px-6 sm:py-6">
+                            {galleries.length === 0 ? (
+                                <div className="flex min-h-[50vh] items-center justify-center border border-dashed border-white/15 bg-black/10 p-10 text-center text-sm uppercase tracking-[0.3em] text-white/55">
+                                    Add folders with images inside public/images/photos/
                                 </div>
                             ) : (
-                                <div>
-                                    <p className="text-sm uppercase tracking-widest text-primary mb-2">Portfolio</p>
-                                    <h1 className="font-serif text-4xl text-dark">Photography galleries</h1>
-                                    <p className="mt-3 text-dark/60 max-w-xl">
-                                        Select a gallery to browse. Click any photo to view it full-screen.
-                                    </p>
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+                                    {galleries.map((gallery, index) => (
+                                        <button
+                                            key={gallery.id}
+                                            type="button"
+                                            className="group overflow-hidden bg-[#1f1f21] text-left"
+                                            onClick={() => openGallery(gallery.id)}
+                                            aria-label={`Open ${gallery.title}`}
+                                        >
+                                            <div className={`overflow-hidden bg-black ${GALLERY_TILE_CLASSES[index % GALLERY_TILE_CLASSES.length]}`}>
+                                                {gallery.cover ? (
+                                                    <img
+                                                        src={gallery.cover}
+                                                        alt={gallery.title}
+                                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85"
+                                                    />
+                                                ) : (
+                                                    <div className="flex h-full min-h-[260px] items-center justify-center text-5xl text-white/20">&#128247;</div>
+                                                )}
+                                            </div>
+                                            <div className="border-t border-white/10 px-4 py-4">
+                                                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">Location / Gallery</div>
+                                                <div className="mt-2 font-serif text-2xl leading-tight text-white">{gallery.title}</div>
+                                                <div className="mt-3 text-xs uppercase tracking-[0.3em] text-white/55">
+                                                    {gallery.photos.length} photo{gallery.photos.length === 1 ? '' : 's'}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    ))}
                                 </div>
                             )}
-                        </div>
-
-                        {/* ---- Gallery blocks grid ---- */}
-                        {!activeLocation && (
-                            <section className="max-w-7xl mx-auto px-6 pb-20">
-                                {galleries.length === 0 ? (
-                                    <div className="border-2 border-dashed border-neutral rounded-2xl p-16 text-center text-dark/40">
-                                        <p className="text-lg font-serif mb-2">No galleries yet</p>
-                                        <p className="text-sm">
-                                            Add a folder of photos to{' '}
-                                            <code className="bg-neutral px-1.5 py-0.5 rounded text-xs">
-                                                public/images/portfolio/&lt;folder-name&gt;/
-                                            </code>{' '}
-                                            and redeploy to see it here.
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {galleries.map((gallery) => (
-                                            <button
-                                                key={gallery.id}
-                                                onClick={() => setActiveLocation(gallery)}
-                                                className="group relative overflow-hidden rounded-2xl bg-neutral text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                                                aria-label={`Open ${gallery.title} gallery`}
-                                            >
-                                                {/* Cover image */}
-                                                <div className="aspect-[4/3] overflow-hidden bg-neutral">
-                                                    {gallery.cover ? (
-                                                        <img
-                                                            src={gallery.cover}
-                                                            alt={gallery.title}
-                                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                        />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-dark/20 text-5xl">&#128247;</div>
-                                                    )}
-                                                </div>
-
-                                                {/* Hover overlay */}
-                                                <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/30 transition-colors duration-300 rounded-2xl" />
-
-                                                {/* Text at bottom */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-dark/70 to-transparent rounded-b-2xl">
-                                                    <h2 className="text-white font-serif text-xl leading-tight">{gallery.title}</h2>
-                                                    <span className="text-white/60 text-xs mt-1 inline-block">
-                                                        {gallery.photos.length} photo{gallery.photos.length !== 1 ? 's' : ''}
-                                                    </span>
-                                                </div>
-
-                                                {/* Arrow hint */}
-                                                <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                    <span className="text-white text-sm">→</span>
-                                                </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </section>
-                        )}
-
-                        {/* ---- Photo grid for selected gallery ---- */}
-                        {activeLocation && (
-                            <section className="max-w-7xl mx-auto px-6 pb-20">
-                                {activeLocation.photos.length === 0 ? (
-                                    <div className="border-2 border-dashed border-neutral rounded-2xl p-16 text-center text-dark/40">
-                                        <p className="text-sm">No photos found in this folder.</p>
-                                    </div>
-                                ) : (
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                        {activeLocation.photos.map((photo, i) => (
-                                            <button
-                                                key={i}
-                                                onClick={() => openLightbox(i)}
-                                                className="group relative overflow-hidden rounded-xl bg-neutral focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                                                aria-label={`View: ${photo.alt}`}
-                                            >
-                                                <div className="aspect-[4/3] overflow-hidden">
-                                                    <img
-                                                        src={photo.src}
-                                                        alt={photo.alt}
-                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                    />
-                                                </div>
-                                                <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/20 transition-colors duration-300 rounded-xl flex items-center justify-center">
-                                                    <span className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow select-none">&#9654;</span>
-                                                </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </section>
-                        )}
-                    </main>
-
-                    {site?.footer && <Footer {...site.footer} />}
+                        </main>
+                    ) : (
+                        <main className="bg-[#2a2b2f] px-4 py-4 sm:px-6 sm:py-6">
+                            <div className="mb-5 flex flex-col gap-3 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                                <button
+                                    type="button"
+                                    onClick={closeGallery}
+                                    className="inline-flex w-fit items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/60 transition hover:text-white"
+                                >
+                                    <span className="text-lg leading-none">&#8592;</span>
+                                    Back To Locations
+                                </button>
+                                <div className="text-xs uppercase tracking-[0.35em] text-white/45">Click any figure to open fullscreen</div>
+                            </div>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                {photos.map((photo, index) => (
+                                    <button
+                                        key={photo.src}
+                                        type="button"
+                                        className="group overflow-hidden bg-[#17181b] text-left"
+                                        onClick={() => setLightboxIndex(index)}
+                                        aria-label={`View ${photo.alt}`}
+                                    >
+                                        <div className={`overflow-hidden ${PHOTO_TILE_CLASSES[index % PHOTO_TILE_CLASSES.length]}`}>
+                                            <img
+                                                src={photo.src}
+                                                alt={photo.alt}
+                                                className="h-full w-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85"
+                                            />
+                                        </div>
+                                        <div className="border-t border-white/10 px-4 py-3">
+                                            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">Figure {index + 1}</div>
+                                            <div className="mt-2 font-serif text-xl leading-tight text-white">{photo.alt}</div>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        </main>
+                    )}
                 </div>
             </div>
 
-            {/* ---- Lightbox ---- */}
-            {lightboxIndex !== null && (
-                <Lightbox
-                    photos={photos}
-                    index={lightboxIndex}
-                    onClose={closeLightbox}
-                    onPrev={prevPhoto}
-                    onNext={nextPhoto}
-                />
-            )}
+            {lightboxIndex !== null && photos.length > 0 ? (
+                <Lightbox photos={photos} index={lightboxIndex} onClose={closeLightbox} onPrev={showPrev} onNext={showNext} />
+            ) : null}
         </>
     );
 }
 
-// ---------------------------------------------------------------------------
-// Build-time: scan public/images/portfolio/ for sub-folders and images.
-// Add a folder there, push to GitHub, and Netlify will rebuild with the
-// new block automatically.
-// ---------------------------------------------------------------------------
 export async function getStaticProps() {
-    const portfolioDir = path.join(process.cwd(), 'public', 'images', 'portfolio');
-
+    const photosDir = path.join(process.cwd(), 'public', 'images', 'photos');
     let galleries = [];
 
-    if (fs.existsSync(portfolioDir)) {
-        const entries = fs.readdirSync(portfolioDir, { withFileTypes: true });
-        const folders = entries
-            .filter((e) => e.isDirectory())
-            .map((e) => e.name)
+    if (fs.existsSync(photosDir)) {
+        const folders = fs
+            .readdirSync(photosDir, { withFileTypes: true })
+            .filter((entry) => entry.isDirectory())
+            .map((entry) => entry.name)
             .sort();
 
         galleries = folders.map((folderName) => {
-            const folderPath = path.join(portfolioDir, folderName);
+            const folderPath = path.join(photosDir, folderName);
             const files = fs
                 .readdirSync(folderPath)
-                .filter((f) => IMAGE_EXTS.has(path.extname(f).toLowerCase()))
+                .filter((fileName) => IMAGE_EXTS.has(path.extname(fileName).toLowerCase()))
                 .sort();
 
-            const photos = files.map((file) => ({
-                src: `/images/portfolio/${folderName}/${file}`,
-                alt: file.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')
+            const photos = files.map((fileName) => ({
+                src: `/images/photos/${folderName}/${fileName}`,
+                alt: fileToAlt(fileName)
             }));
 
             return {
@@ -405,8 +293,9 @@ export async function getStaticProps() {
         });
     }
 
-    const data = allContent();
-    const site = data.props?.site ?? null;
-
-    return { props: { site, galleries } };
+    return {
+        props: {
+            galleries
+        }
+    };
 }
