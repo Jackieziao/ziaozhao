@@ -253,6 +253,17 @@ return (
 <div className="flex flex-wrap items-center justify-center gap-3">
 <button
 type="button"
+onClick={onGoHome}
+className={`rounded-md border px-4 py-2 text-xs uppercase tracking-[0.3em] transition ${
+activeRegion === null
+? 'border-cyan-300 bg-cyan-400/15 text-cyan-100'
+: 'border-cyan-500/35 bg-transparent text-cyan-300/70 hover:text-cyan-100'
+}`}
+>
+Gallery
+</button>
+<button
+type="button"
 onClick={() => onSelectRegion('china')}
 className={`rounded-md border px-4 py-2 text-xs uppercase tracking-[0.3em] transition ${
 activeRegion === 'china'
@@ -272,17 +283,6 @@ activeRegion === 'worldwide'
 }`}
 >
 Worldwide
-</button>
-<button
-type="button"
-onClick={onGoHome}
-className={`rounded-md border px-4 py-2 text-xs uppercase tracking-[0.3em] transition ${
-activeRegion === null
-? 'border-cyan-300 bg-cyan-400/15 text-cyan-100'
-: 'border-cyan-500/35 bg-transparent text-cyan-300/70 hover:text-cyan-100'
-}`}
->
-Initial Page
 </button>
 </div>
 </div>
@@ -345,15 +345,6 @@ return (
 <NetworkBackground />
 <div className="relative z-10">
 <div className="mx-auto max-w-7xl overflow-hidden border border-blue-500/30 bg-[#1a2844] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
-<div className="flex items-center gap-2 border-b border-blue-500/20 bg-[#0f1b2e] px-5 py-4">
-<span className="h-3 w-3 rounded-full bg-[#ff6b57]" />
-<span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-<span className="h-3 w-3 rounded-full bg-[#28c840]" />
-<div className="ml-6 hidden h-10 flex-1 items-center rounded-full bg-[#00ccff]/15 px-4 text-sm text-[#60d5ff] sm:flex">
-https://ziaozhao.photography
-</div>
-</div>
-
 <div className="border-b border-blue-500/20 bg-gradient-to-b from-[#1a3a5a] to-[#0f1b2e] px-6 py-6 text-center">
 <p className="text-xs uppercase tracking-[0.45em] text-cyan-300/50">Ziaozhao Photography</p>
 <h1 className="mt-2 font-serif text-3xl uppercase tracking-[0.2em] text-cyan-200 sm:text-4xl">Photolux Style Gallery</h1>
