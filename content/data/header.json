@@ -12,7 +12,7 @@
     "primaryLinks": [
         {
             "label": "Portfolio",
-            "url": "/",
+            "url": "/portfolio",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
