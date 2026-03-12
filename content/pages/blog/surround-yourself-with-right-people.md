@@ -1,9 +1,9 @@
----
-title: Surround Yourself With the Right People
+title: Build a Creative Team Your Clients Trust
 slug: surround-yourself-with-right-people
 date: '2024-03-26'
 excerpt: >-
-  Starting a business is no small feat. It’s a journey filled with challenges, risks, and countless decisions that can make or break your startup. One of the most critical decisions you'll make isn’t about your product or market—it's about the people you surround yourself with.
+  Strong photographs rarely happen alone. Stylists, planners, florists, and
+  assistants shape the environment that lets the work feel seamless.
 featuredImage:
   altText: Thumbnail
   type: ImageBlock
@@ -12,8 +12,8 @@ featuredImage:
     self:
       borderRadius: medium
 seo:
-  metaTitle: Surround Yourself With the Right People
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: Build a Creative Team Your Clients Trust
+  metaDescription: Why strong photography work depends on the right creative collaborators.
   socialImage: /images/abstract-feature1.svg
   type: Seo
 colors: bg-light-fg-dark
@@ -25,7 +25,7 @@ styles:
 isFeatured: false
 ---
 
-Starting a business is no small feat. It’s a journey filled with challenges, risks, and countless decisions that can make or break your startup. One of the most critical decisions you'll make isn’t about your product or market—it's about the people you surround yourself with.
+Strong photography work is rarely a solo act. The planner, stylist, florist, assistant, and coordinator all influence how calm the day feels and how much space there is for honest moments to happen.
 
 ## Why the Right People Matter
 

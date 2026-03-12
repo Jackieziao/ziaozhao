@@ -1,24 +1,23 @@
 ---
-title: Careers
+title: About
 slug: careers
 sections:
   - title:
-      text: A team that works closely together
+      text: A studio built around light, pace, and trust
       color: text-dark
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: Section subtitle
-    text: >
-      There are many variations of passages of Lorem Ipsum available, but the
-      majority have suffered alteration in some form, by injected humour, or
-      randomised words which don't look even slightly believable. If you are
-      going to use a passage of Lorem Ipsum, you need to be sure there isn't
-      anything embarrassing hidden in the middle of text.
+    subtitle: About Ziaozhao Photography
+    text: >-
+      The work here is quiet by design. I want space for people to move, talk,
+      breathe, and settle into themselves while I shape the frame around what is
+      already happening. That balance between observation and direction is what
+      gives the photographs their ease.
     actions:
-      - label: See open positions
-        url: /
+      - label: Start your inquiry
+        url: /#contact-form
         icon: arrowRight
         iconPosition: right
         style: primary
@@ -41,14 +40,14 @@ sections:
     type: GenericSection
     backgroundImage:
       type: BackgroundImage
-      altText: altText of the image
+      altText: Abstract studio background
       backgroundSize: cover
       backgroundPosition: center
       backgroundRepeat: no-repeat
       opacity: 100
       url: /images/abstract-background.svg
   - title:
-      text: Meet the team
+      text: The people behind the gallery
       color: text-dark
       styles:
         self:
@@ -75,20 +74,19 @@ sections:
         textAlign: center
     type: FeaturedPeopleSection
   - title:
-      text: Open positions
+      text: How a session usually flows
       color: text-dark
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: Subtitle goes here
+    subtitle: A simple structure that keeps the experience easy and the work intentional
     items:
-      - title: Account Executive
-        subtitle: Sales
+      - title: Discovery
+        subtitle: Call and planning notes
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          We talk about what matters most, how the photographs will be used, and
+          what pace will help the session feel natural.
         colors: bg-neutral-fg-dark
         styles:
           self:
@@ -102,12 +100,11 @@ sections:
             flexDirection: row
             justifyContent: center
         type: FeaturedItem
-      - title: Open Source Engineer
-        subtitle: Marketing
+      - title: Shoot day
+        subtitle: Guided, calm, and efficient
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          I direct lightly, watch the in-between moments closely, and keep the
+          atmosphere relaxed so the frame never feels forced.
         colors: bg-neutral-fg-dark
         styles:
           self:
@@ -121,12 +118,11 @@ sections:
             flexDirection: row
             justifyContent: center
         type: FeaturedItem
-      - title: Senior Software Engineer
-        subtitle: Engineering
+      - title: Delivery
+        subtitle: Edited for consistency and longevity
         text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+          Final images are color-balanced, sequenced, and delivered as a gallery
+          that reads like a complete story rather than a folder of singles.
         colors: bg-neutral-fg-dark
         styles:
           self:
@@ -139,8 +135,8 @@ sections:
             flexDirection: row
         type: FeaturedItem
     actions:
-      - label: Apply now
-        url: /
+      - label: Check collections
+        url: /pricing
         icon: arrowRight
         iconPosition: right
         style: primary
@@ -159,8 +155,8 @@ sections:
         textAlign: center
     type: FeaturedItemsSection
 seo:
-  metaTitle: Careers - Demo site
-  metaDescription: This is the careers page built with Netlify Create.
+  metaTitle: About - Ziaozhao Photography
+  metaDescription: Meet the studio and learn how sessions are planned and photographed.
   socialImage: /images/main-hero.jpg
   type: Seo
 type: PageLayout

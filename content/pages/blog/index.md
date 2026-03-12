@@ -1,14 +1,14 @@
 ---
-title: Blog
+title: Journal
 slug: /blog
 numOfPostsPerPage: 8
 enableSearch: true
 topSections:
   - title:
-      text: Featured Post
+      text: Featured Story
       color: text-dark
       type: TitleBlock
-    subtitle: This is the subtitle
+    subtitle: Notes from sessions, travels, and thoughtful planning
     posts:
       - content/pages/blog/top-ten-lessons-we-learned.md
     showThumbnail: true
@@ -31,11 +31,9 @@ styles:
   title:
     textAlign: center
 seo:
-  metaTitle: Blog - Demo site
-  metaDescription: >-
-    This is the blog of the demo site where we post about technology, product,
-    and design.
-  socialImage: /images/img-placeholder.svg
+  metaTitle: Journal - Ziaozhao Photography
+  metaDescription: Photography stories, planning advice, and behind-the-scenes notes.
+  socialImage: /images/main-hero.jpg
   type: Seo
 type: PostFeedLayout
 bottomSections: []

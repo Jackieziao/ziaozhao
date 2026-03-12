@@ -1,7 +1,7 @@
 {
     "type": "Person",
     "name": "Faizah Chan",
-    "role": "Co-founder & CEO",
+    "role": "Producer",
     "image": {
         "url": "/images/avatar2.svg",
         "altText": "Faizah Chan",
@@ -33,5 +33,5 @@
             "justifyContent": "center"
         }
     },
-    "bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n"
+    "bio": "Coordinates timelines, locations, and the practical details that keep shoot days calm.\n"
 }

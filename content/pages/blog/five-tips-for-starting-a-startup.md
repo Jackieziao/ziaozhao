@@ -1,11 +1,9 @@
----
-title: 5 Tips for Starting a Startup
+title: 5 Ways to Feel Relaxed in Front of the Camera
 slug: five-tips-for-starting-a-startup
 date: '2023-03-18'
 excerpt: >-
-  Sit ratione eligendi et quis distinctio et maiores accusantium aut accusamus
-  facere sit repellat quidem qui alias nostrum et earum enim. Cum quis sint eos
-  dolor quas ad odit ipsum qui quia eius.
+  A few practical shifts before a portrait session can change the entire tone
+  of the gallery. Here is how to arrive calmer, looser, and more like yourself.
 featuredImage:
   url: /images/abstract-feature1.svg
   altText: Thumbnail
@@ -17,8 +15,8 @@ bottomSections: []
 isFeatured: false
 isDraft: false
 seo:
-  metaTitle: 5 Tips for Starting a Startup
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: 5 Ways to Feel Relaxed in Front of the Camera
+  metaDescription: Practical guidance for arriving at a portrait session feeling calm and natural.
   socialImage: /images/abstract-feature1.svg
   type: Seo
 colors: bg-light-fg-dark

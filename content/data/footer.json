@@ -1,16 +1,16 @@
 {
     "logo": {
         "url": "/images/logo-white.svg",
-        "altText": "Logo light",
+        "altText": "Ziaozhao Photography",
         "type": "ImageBlock"
     },
-    "text": "A description of your brand",
+    "text": "Editorial photography for weddings, portraits, and thoughtful brands. Built around light, movement, and honest direction.",
     "primaryLinks": {
-        "title": "Product",
+        "title": "Explore",
         "links": [
             {
-                "label": "Features",
-                "altText": "Features page",
+                "label": "Portfolio",
+                "altText": "Portfolio",
                 "url": "/",
                 "icon": "arrowRight",
                 "iconPosition": "right",
@@ -18,7 +18,7 @@
                 "type": "Link"
             },
             {
-                "label": "Pricing",
+                "label": "Collections",
                 "url": "/pricing",
                 "icon": "arrowRight",
                 "iconPosition": "right",
@@ -26,8 +26,8 @@
                 "type": "Link"
             },
             {
-                "label": "Documentation",
-                "url": "/",
+                "label": "Journal",
+                "url": "/blog",
                 "icon": "arrowRight",
                 "iconPosition": "right",
                 "style": "secondary",
@@ -37,11 +37,11 @@
         "type": "FooterLinksGroup"
     },
     "secondaryLinks": {
-        "title": "Company",
+        "title": "Connect",
         "links": [
             {
-                "label": "Careers",
-                "altText": "careers page",
+                "label": "About",
+                "altText": "About page",
                 "url": "/careers",
                 "icon": "arrowRight",
                 "iconPosition": "right",
@@ -49,8 +49,8 @@
                 "type": "Link"
             },
             {
-                "label": "Blog",
-                "url": "/blog",
+                "label": "Inquire",
+                "url": "/#contact-form",
                 "icon": "arrowRight",
                 "iconPosition": "right",
                 "style": "secondary",
@@ -61,49 +61,43 @@
     },
     "socialLinks": [
         {
-            "altText": "GitHub link",
-            "url": "https://github.com/netlify",
-            "icon": "github",
-            "type": "Social"
-        },
-        {
-            "altText": "Twitter link",
-            "url": "https://twitter.com/netlify",
-            "icon": "twitter",
+            "altText": "Instagram link",
+            "url": "https://instagram.com",
+            "icon": "instagram",
             "type": "Social"
         },
         {
             "altText": "LinkedIn link",
-            "url": "https://www.linkedin.com/company/netlify",
+            "url": "https://www.linkedin.com",
             "icon": "linkedin",
             "type": "Social"
         },
         {
             "altText": "Email link",
-            "url": "/",
+            "url": "mailto:hello@ziaozhao.com",
             "icon": "mail",
             "type": "Social"
         }
     ],
     "legalLinks": [
         {
-            "label": "Terms",
-            "url": "/",
+            "label": "Availability",
+            "url": "/pricing",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
         },
         {
-            "label": "Privacy",
-            "url": "/",
+            "label": "Contact",
+            "url": "/#contact-form",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
         }
     ],
-    "copyrightText": "Powered by [Netlify](https://www.netlify.com/)\n",
+    "copyrightText": "Ziaozhao Photography. Crafted for modern stories.\n",
     "colors": "bg-dark-fg-light",
     "type": "Footer"
 }

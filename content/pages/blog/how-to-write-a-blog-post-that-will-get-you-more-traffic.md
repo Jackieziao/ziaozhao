@@ -1,12 +1,10 @@
----
 type: PostLayout
-title: How to Write a Blog Post That Will Get You More Traffic
+title: How to Plan a Photo Timeline That Leaves Room to Breathe
 slug: how-to-write-a-blog-post-that-will-get-you-more-traffic
 date: '2023-01-18'
 excerpt: >-
-  Sit ratione eligendi et quis distinctio et maiores accusantium aut accusamus
-  facere sit repellat quidem qui alias nostrum et earum enim. Cum quis sint eos
-  dolor quas ad odit ipsum qui quia eius.
+  The best galleries come from schedules with margin. This guide covers how to
+  build a timeline that protects light, travel time, and real moments.
 featuredImage:
   url: /images/abstract-feature2.svg
   altText: Thumbnail
@@ -18,8 +16,8 @@ bottomSections: []
 isFeatured: false
 isDraft: false
 seo:
-  metaTitle: How to Write a Blog Post That Will Get You More Traffic
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: How to Plan a Photo Timeline That Leaves Room to Breathe
+  metaDescription: A planning guide for building photo timelines with margin and better light.
   socialImage: /images/abstract-feature2.svg
   type: Seo
 colors: bg-light-fg-dark

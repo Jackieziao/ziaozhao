@@ -1,7 +1,7 @@
 {
     "type": "Person",
     "name": "Drake Garza",
-    "role": "Job title",
+    "role": "Studio Manager",
     "image": {
         "url": "/images/avatar5.svg",
         "altText": "Drake Garza",
@@ -33,5 +33,5 @@
             "justifyContent": "center"
         }
     },
-    "bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n"
+    "bio": "Keeps communication, scheduling, and delivery organized so clients always know what happens next.\n"
 }

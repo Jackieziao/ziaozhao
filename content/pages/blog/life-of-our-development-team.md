@@ -1,11 +1,9 @@
----
-title: A Day in the Life of Our Development Team
+title: A Day Inside a Wedding Weekend
 slug: life-of-our-development-team
 date: '2025-01-15'
 excerpt: >-
-  Vel repellat dolores ut unde voluptatum ut optio voluptates est aliquid. Ut
-  earum corporis id Quis esse est galisum officiis accusantium enim et
-  asperiores dolore.
+  From rehearsal dinner frames to the quiet reset after the reception, here is
+  what a full wedding weekend feels like from behind the camera.
 featuredImage:
   url: /images/abstract-feature3.svg
   altText: Thumbnail
@@ -14,8 +12,8 @@ featuredImage:
     self:
       borderRadius: medium
 seo:
-  metaTitle: A Day in the Life of Our Development Team
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: A Day Inside a Wedding Weekend
+  metaDescription: A behind-the-scenes look at how a wedding weekend unfolds through photography coverage.
   socialImage: /images/abstract-feature3.svg
   type: Seo
 colors: bg-light-fg-dark

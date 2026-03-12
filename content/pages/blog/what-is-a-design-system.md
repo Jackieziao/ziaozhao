@@ -1,10 +1,10 @@
----
 type: PostLayout
-title: What is a Design System
+title: What Makes a Photo Story Feel Cohesive
 slug: what-is-a-design-system
 date: '2023-02-14'
 excerpt: >-
-  A Design System is a comprehensive set of standards, principles, and tools that guide the design and development of a product or service. It provides a unified framework to ensure consistency, efficiency, and scalability across a product's user interface (UI) and user experience (UX).
+  Cohesion in a gallery comes from rhythm, light, color, and restraint. Here is
+  what turns a group of strong singles into one complete story.
 featuredImage:
   url: /images/abstract-feature3.svg
   altText: Thumbnail
@@ -16,8 +16,8 @@ bottomSections: []
 isFeatured: false
 isDraft: false
 seo:
-  metaTitle: What is a Design System
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: What Makes a Photo Story Feel Cohesive
+  metaDescription: The visual principles that make a gallery feel consistent from frame to frame.
   socialImage: /images/abstract-feature3.svg
   type: Seo
 colors: bg-light-fg-dark
@@ -27,7 +27,7 @@ styles:
 author: content/data/person2.json
 ---
 
-A **Design System** is a comprehensive set of standards, principles, and tools that guide the design and development of a product or service. It provides a unified framework to ensure consistency, efficiency, and scalability across a product's user interface (UI) and user experience (UX).
+A cohesive photo story is built from repetition and restraint. Light quality, color temperature, pacing, subject distance, and the way details are threaded between wider moments all shape whether a gallery feels complete or fragmented.
 
 ### Key Components of a Design System:
 

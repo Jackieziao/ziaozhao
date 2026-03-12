@@ -1,7 +1,7 @@
 {
     "type": "Person",
     "name": "Asher Schmitt",
-    "role": "Co-founder & CEO",
+    "role": "Lighting Assistant",
     "image": {
         "url": "/images/avatar3.svg",
         "altText": "Asher Schmitt",
@@ -33,5 +33,5 @@
             "justifyContent": "center"
         }
     },
-    "bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n"
+    "bio": "Handles lighting refinements, equipment flow, and the small adjustments that protect a clean frame.\n"
 }

@@ -1,34 +1,34 @@
 ---
-title: Pricing
+title: Collections
 slug: pricing
 sections:
   - title:
-      text: Flexible Pricing
+      text: Collections built for different kinds of stories
       color: text-dark
       styles:
         self:
           textAlign: center
       type: TitleBlock
-    subtitle: This is the subtitle for the pricing section
+    subtitle: Clear starting points with room to shape the coverage around you
     plans:
-      - title: Developers
-        price: Free
-        details: No credit card required
+      - title: Wedding Coverage
+        price: From $2,400
+        details: Full day or intimate celebrations
         description: >-
-          Sed ut perspiciatis unde omnis, iste natus error sit voluptatem
-          accusantium doloremque.
+          Documentary coverage with gentle direction, timeline guidance, and a
+          polished final gallery built for both memory and print.
         features:
-          - Feature one
-          - Feature two
-          - Feature three
-          - Feature four
+          - Timeline support before the day
+          - Full gallery delivery
+          - Preview images within 72 hours
+          - Printing rights for personal use
         image:
           url: /images/abstract-feature1.svg
-          altText: Pricing plan 1
+          altText: Wedding collection
           type: ImageBlock
         actions:
-          - label: Try for free
-            url: /
+          - label: Inquire now
+            url: /#contact-form
             icon: arrowRight
             iconPosition: right
             style: secondary
@@ -43,24 +43,24 @@ sections:
               - pr-6
             borderRadius: large
         type: PricingPlan
-      - title: Professional
-        price: $99
-        details: per month
+      - title: Portrait Sessions
+        price: From $450
+        details: Individuals, couples, and families
         description: >-
-          Sed ut perspiciatis unde omnis, iste natus error sit voluptatem
-          accusantium doloremque.
+          Relaxed portrait sessions with a refined editorial finish, ideal for
+          personal milestones, updated branding, or simply marking a season well.
         features:
-          - Feature one
-          - Feature two
-          - Feature three
-          - Feature four
+          - Session planning call
+          - Location and wardrobe guidance
+          - Curated online gallery
+          - Optional print upgrades
         image:
           url: /images/abstract-feature2.svg
-          altText: Pricing plan 2
+          altText: Portrait session collection
           type: ImageBlock
         actions:
-          - label: Try for free
-            url: /
+          - label: Book portraits
+            url: /#contact-form
             icon: arrowRight
             iconPosition: right
             style: secondary
@@ -75,25 +75,24 @@ sections:
               - pr-6
             borderRadius: large
         type: PricingPlan
-      - title: Enterprise
-        price: Custom
-        details: per month
+      - title: Brand Storytelling
+        price: From $1,200
+        details: Campaigns, launches, and hospitality
         description: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam.
+          A strategic image library for founders and creative teams who need
+          consistent photographs across websites, press, and social campaigns.
         features:
-          - Feature one
-          - Feature two
-          - Feature three
-          - Feature four
-          - Feature five
+          - Creative direction support
+          - Shot list and production planning
+          - Team and detail coverage
+          - Commercial usage guidance
         image:
           url: /images/abstract-feature3.svg
-          altText: Pricing plan 3
+          altText: Brand storytelling collection
           type: ImageBlock
         actions:
-          - label: Contact us
-            url: /
+          - label: Discuss your project
+            url: /#contact-form
             icon: arrowRight
             iconPosition: right
             style: secondary
@@ -116,8 +115,8 @@ sections:
         textAlign: center
     type: PricingSection
 seo:
-  metaTitle: Pricing - Demo site
-  metaDescription: This is the pricing page built with Netlify Create.
+  metaTitle: Collections - Ziaozhao Photography
+  metaDescription: Photography collections for weddings, portraits, and brands.
   socialImage: /images/main-hero.jpg
   type: Seo
 type: PageLayout

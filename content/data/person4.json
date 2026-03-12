@@ -1,7 +1,7 @@
 {
     "type": "Person",
     "name": "Nina Mercado",
-    "role": "Co-founder & CEO",
+    "role": "Photo Editor",
     "image": {
         "url": "/images/avatar4.svg",
         "altText": "Nina Mercado",
@@ -33,5 +33,5 @@
             "justifyContent": "center"
         }
     },
-    "bio": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n"
+    "bio": "Shapes color, pacing, and consistency across each delivered gallery so the story reads smoothly end to end.\n"
 }

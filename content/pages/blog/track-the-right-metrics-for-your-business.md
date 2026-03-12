@@ -1,12 +1,10 @@
----
 type: PostLayout
-title: Track the right analytics for your business
+title: What to Look for When Reviewing a Gallery Proof
 slug: track-the-right-analytics-for-your-business
 date: '2023-02-20'
 excerpt: >-
-  Sit ratione eligendi et quis distinctio et maiores accusantium aut accusamus
-  facere sit repellat quidem qui alias nostrum et earum enim. Cum quis sint eos
-  dolor quas ad odit ipsum qui quia eius.
+  When clients review a proof gallery, the best selections usually come from
+  pacing, sequence, and emotional weight rather than choosing every similar frame.
 featuredImage:
   url: /images/abstract-feature3.svg
   altText: Thumbnail
@@ -18,8 +16,8 @@ bottomSections: []
 isFeatured: false
 isDraft: false
 seo:
-  metaTitle: Track the right analytics for your business
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: What to Look for When Reviewing a Gallery Proof
+  metaDescription: Guidance for reviewing proof galleries with clarity and better final selections.
   socialImage: /images/abstract-feature3.svg
   type: Seo
 colors: bg-light-fg-dark

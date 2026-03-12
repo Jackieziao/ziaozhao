@@ -1,11 +1,9 @@
----
-title: Top 20 Ways to Save Time at Work This Year
+title: 20 Small Time Savers for Wedding Morning Coverage
 slug: top-twenty-ways-to-save-time
 date: '2023-03-25'
 excerpt: >-
-  Quo facilis culpa ut illo dolor quo placeat consequatur. A consequatur facilis
-  aut voluptas dolores qui aperiam laborum ut ullam consequatur ut quia
-  consequatur cum inventore voluptas sed impedit asperiores!
+  A few small habits make preparation coverage smoother, faster, and far less
+  stressful for everyone in the room.
 featuredImage:
   url: /images/abstract-feature2.svg
   altText: Thumbnail
@@ -14,8 +12,8 @@ featuredImage:
     self:
       borderRadius: medium
 seo:
-  metaTitle: Top 20 Ways to Save Time at Work This Year
-  metaDescription: You can add the excerpt and main keywords of your blog post here.
+  metaTitle: 20 Small Time Savers for Wedding Morning Coverage
+  metaDescription: Small workflow choices that make wedding morning photography run more smoothly.
   socialImage: /images/abstract-feature2.svg
   type: Seo
 colors: bg-light-fg-dark

@@ -1,7 +1,7 @@
 {
     "logo": {
         "url": "/images/logo-dark.svg",
-        "altText": "Logo dark",
+        "altText": "Ziaozhao Photography",
         "styles": {
             "self": {
                 "margin": ["mr-3"]
@@ -11,7 +11,16 @@
     },
     "primaryLinks": [
         {
-            "label": "Pricing",
+            "label": "Portfolio",
+            "url": "/",
+            "icon": "arrowRight",
+            "iconPosition": "right",
+            "style": "secondary",
+            "type": "Link"
+        },
+        {
+            "label": "Collections",
+            "altText": "Collections",
             "url": "/pricing",
             "icon": "arrowRight",
             "iconPosition": "right",
@@ -19,8 +28,8 @@
             "type": "Link"
         },
         {
-            "label": "Blog",
-            "altText": "Blog",
+            "label": "Journal",
+            "altText": "Journal",
             "url": "/blog",
             "icon": "arrowRight",
             "iconPosition": "right",
@@ -28,60 +37,28 @@
             "type": "Link"
         },
         {
-            "label": "Careers",
-            "altText": "Careers page",
+            "label": "About",
+            "altText": "About the studio",
             "url": "/careers",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Link"
-        },
-        {
-            "label": "Dropdown",
-            "altText": "Dropdown",
-            "links": [
-                {
-                    "label": "Dropdown item",
-                    "url": "/",
-                    "icon": "arrowRight",
-                    "iconPosition": "right",
-                    "style": "secondary",
-                    "type": "Link"
-                },
-                {
-                    "label": "Dropdown item",
-                    "url": "/",
-                    "icon": "arrowRight",
-                    "iconPosition": "right",
-                    "style": "secondary",
-                    "type": "Link"
-                },
-                {
-                    "label": "Dropdown item",
-                    "url": "/",
-                    "icon": "arrowRight",
-                    "iconPosition": "right",
-                    "style": "secondary",
-                    "type": "Link"
-                }
-            ],
-            "labelStyle": "secondary",
-            "type": "SubNav"
         }
     ],
     "secondaryLinks": [
         {
-            "label": "Sign up",
-            "altText": "Sign up",
-            "url": "https://app.netlify.com/signup",
+            "label": "Book a Session",
+            "altText": "Book a photography session",
+            "url": "/#contact-form",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "secondary",
             "type": "Button"
         },
         {
-            "label": "Log in",
-            "url": "/",
+            "label": "Say Hello",
+            "url": "/#contact-form",
             "icon": "arrowRight",
             "iconPosition": "right",
             "style": "primary",
