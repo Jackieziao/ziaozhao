@@ -300,6 +300,10 @@ export default function Home({ galleries, blogs }) {
   const recentPhotos = useMemo(() => sortPhotosByLatest(allPhotos).slice(0, 10), [allPhotos]);
   const totalLocations = useMemo(() => GALLERY_SECTIONS.reduce((count, section) => count + (galleries[section.key]?.length ?? 0), 0), [galleries]);
   const totalPhotos = allPhotos.length;
+  const latestUpdateText = useMemo(() => {
+    const latestTimestamp = sortPhotosByLatest(allPhotos)[0]?.createdTimestamp;
+    return latestTimestamp ? formatDateTime(latestTimestamp) : '';
+  }, [allPhotos]);
 
   const openSection = useCallback((sectionKey) => {
     setActiveSection(sectionKey);
@@ -338,7 +342,7 @@ export default function Home({ galleries, blogs }) {
         <div className="relative z-10">
           <div className="mx-auto max-w-7xl overflow-hidden border border-blue-500/30 bg-[#1a2844] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
             <div className="border-b border-blue-500/20 bg-gradient-to-b from-[#1a3a5a] to-[#0f1b2e] px-6 py-6 text-center">
-              <p className="text-xs uppercase tracking-[0.45em] text-cyan-300/50">From Our Eyes, We See The World Like This</p>
+              <p className="text-xs uppercase tracking-[0.45em] text-cyan-300/50">From My Eyes, I See The World Like This</p>
               <h1 className="mt-2 font-serif text-3xl uppercase tracking-[0.2em] text-cyan-200 sm:text-4xl">Photolux Style Gallery</h1>
               <p className="mt-3 text-sm uppercase tracking-[0.35em] text-cyan-400/60">{headingLabel}</p>
             </div>
@@ -358,6 +362,7 @@ export default function Home({ galleries, blogs }) {
                         section.key === 'blog'
                           ? blogs.reduce((count, blog) => count + (blog.images?.length ?? 0), 0)
                           : (galleries[section.key] ?? []).reduce((count, gallery) => count + gallery.photos.length, 0);
+                      const showLocationCount = section.key !== 'family';
 
                       return (
                         <button
@@ -369,10 +374,12 @@ export default function Home({ galleries, blogs }) {
                           <div className="aspect-[16/8] bg-gradient-to-r from-cyan-700/20 via-cyan-400/10 to-transparent p-6">
                             <div className="text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">{section.kind}</div>
                             <div className="mt-3 font-serif text-4xl text-cyan-100">{section.label}</div>
-                            <div className="mt-4 text-xs uppercase tracking-[0.25em] text-cyan-300/70">
-                              {locationCount} {section.key === 'blog' ? 'post' : 'location'}{locationCount === 1 ? '' : 's'}
-                            </div>
-                            <div className="mt-2 text-xs uppercase tracking-[0.25em] text-cyan-300/70">
+                            {showLocationCount ? (
+                              <div className="mt-4 text-xs uppercase tracking-[0.25em] text-cyan-300/70">
+                                {locationCount} {section.key === 'blog' ? 'post' : 'location'}{locationCount === 1 ? '' : 's'}
+                              </div>
+                            ) : null}
+                            <div className={`${showLocationCount ? 'mt-2' : 'mt-4'} text-xs uppercase tracking-[0.25em] text-cyan-300/70`}>
                               {photoCount} figure{photoCount === 1 ? '' : 's'}
                             </div>
                           </div>
@@ -388,7 +395,7 @@ export default function Home({ galleries, blogs }) {
                       <div className="mt-4 text-sm uppercase tracking-[0.22em] text-cyan-300/70">
                         {totalLocations} locations  {totalPhotos} photos
                       </div>
-                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">Choose China, Worldwide, Family, or Blog to continue.</div>
+                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">These are all I remember and record like this.</div>
                     </div>
 
                     <div className="overflow-x-auto rounded-sm border border-cyan-400/20 bg-[#0e1d33]/60 p-4 lg:col-span-2 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
@@ -404,6 +411,11 @@ export default function Home({ galleries, blogs }) {
                           ))}
                         </div>
                       )}
+                      <div className="mt-4 flex justify-end">
+                        <div className="rounded-sm border border-cyan-400/25 bg-[#0b1b30]/80 px-3 py-2 text-[10px] uppercase tracking-[0.25em] text-cyan-300/70">
+                          Latest Update: {latestUpdateText || 'N/A'}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -412,7 +424,7 @@ export default function Home({ galleries, blogs }) {
               <main className="bg-gradient-to-b from-[#132035] to-[#0f1b2e] px-4 py-6 sm:px-6 sm:py-8">
                 {blogs.length === 0 ? (
                   <div className="flex min-h-[45vh] items-center justify-center border border-dashed border-cyan-400/25 bg-blue-950/20 p-10 text-center text-sm uppercase tracking-[0.3em] text-cyan-300/60">
-                    Add blog posts in content/data/blogs.json or content/data/uploaded blogs/*.json
+                    Add blog posts in content/data/uploaded blogs/*.json
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -593,7 +605,6 @@ export async function getStaticProps() {
     GALLERY_SECTIONS.flatMap((section) => (galleries[section.key] ?? []).flatMap((gallery) => gallery.photos))
   );
 
-  const configuredBlogs = readJsonFile(path.join(process.cwd(), 'content', 'data', 'blogs.json'));
   const uploadedBlogsDir = path.join(process.cwd(), 'content', 'data', 'uploaded blogs');
   const uploadedBlogEntries = fs.existsSync(uploadedBlogsDir)
     ? fs
@@ -608,13 +619,10 @@ export async function getStaticProps() {
           return parsed && typeof parsed === 'object' ? [parsed] : [];
         })
     : [];
-
-  const configuredBlogEntries = Array.isArray(configuredBlogs) ? configuredBlogs : [];
-  const combinedBlogEntries = [...configuredBlogEntries, ...uploadedBlogEntries];
   let blogs = [];
 
-  if (combinedBlogEntries.length > 0) {
-    blogs = combinedBlogEntries.map((entry, index) => {
+  if (uploadedBlogEntries.length > 0) {
+    blogs = uploadedBlogEntries.map((entry, index) => {
       const imageList = Array.isArray(entry?.images) ? entry.images.filter((value) => typeof value === 'string' && value.trim()) : [];
       const fallbackImage = allPhotos[index % Math.max(allPhotos.length, 1)]?.src;
 
