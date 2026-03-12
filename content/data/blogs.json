@@ -1,0 +1,19 @@
+[
+  {
+    "id": "blog-main-1",
+    "title": "Golden Hour Walk",
+    "paragraph": "Write your paragraph here. Describe the story behind this set of images and the feeling you want to share.",
+    "images": [
+      "/images/photos/worldwide/city-hall-wedding/01-main-hero.jpg",
+      "/images/photos/worldwide/portrait-studio/01-hero2.svg"
+    ]
+  },
+  {
+    "id": "blog-main-2",
+    "title": "Quiet City Frames",
+    "paragraph": "Write another story paragraph here. You can add as many blog objects as you want in this file.",
+    "images": [
+      "/images/photos/worldwide/editorial-streets/01-abstract-feature3.svg"
+    ]
+  }
+]
