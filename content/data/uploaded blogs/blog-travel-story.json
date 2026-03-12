@@ -1,11 +1,11 @@
 [
-  {
-    "id": "blog-uploaded-travel-1",
-    "title": "Travel Story Template",
-    "paragraph": "This file uses an array format. You can put multiple blog entries in one JSON file.",
-    "images": [
-      "/images/photos/worldwide/waterfront-session/01-abstract-feature1.svg",
-      "/images/photos/worldwide/waterfront-session/02-abstract-feature2.svg"
-    ]
-  }
+    {
+        "id": "blog-uploaded-travel-1",
+        "title": "Travel Story Template",
+        "paragraph": "This file uses an array format. You can put multiple blog entries in one JSON file.",
+        "images": [
+            "/images/photos/worldwide/waterfront-session/01-abstract-feature1.svg",
+            "/images/photos/worldwide/waterfront-session/02-abstract-feature2.svg"
+        ]
+    }
 ]

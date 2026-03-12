@@ -1,8 +1,8 @@
 {
-  "id": "blog-uploaded-family-1",
-  "title": "Family Story Template",
-  "paragraph": "This is a separate uploaded blog JSON file. Keep one blog object in this file or use an array of blog objects.",
-  "images": [
-    "/images/photos/family/sample-family-photo.jpg"
-  ]
+    "id": "blog-uploaded-family-1",
+    "title": "Family Story Template",
+    "paragraph": "This is a separate uploaded blog JSON file. Keep one blog object in this file or use an array of blog objects.",
+    "images": [
+        "/images/photos/family/sample-family-photo.jpg"
+    ]
 }
