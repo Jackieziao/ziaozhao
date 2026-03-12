@@ -8,7 +8,8 @@ const GALLERY_TILE_CLASSES = ['aspect-[4/5]', 'aspect-[3/4]', 'aspect-square', '
 const PHOTO_TILE_CLASSES = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[4/3]'];
 const REGIONS = [
 { key: 'china', label: 'China' },
-{ key: 'worldwide', label: 'Worldwide' }
+{ key: 'worldwide', label: 'Worldwide' },
+{ key: 'family', label: 'Family' }
 ];
 
 function folderToTitle(name) {
@@ -284,6 +285,17 @@ activeRegion === 'worldwide'
 >
 Worldwide
 </button>
+<button
+type="button"
+onClick={() => onSelectRegion('family')}
+className={`rounded-md border px-4 py-2 text-xs uppercase tracking-[0.3em] transition ${
+activeRegion === 'family'
+? 'border-cyan-300 bg-cyan-400/15 text-cyan-100'
+: 'border-cyan-500/35 bg-transparent text-cyan-300/70 hover:text-cyan-100'
+}`}
+>
+Family
+</button>
 </div>
 </div>
 );
@@ -331,6 +343,12 @@ const showPrev = useCallback(() => setLightboxIndex((value) => Math.max(0, value
 const showNext = useCallback(() => setLightboxIndex((value) => Math.min(photos.length - 1, value + 1)), [photos.length]);
 
 const currentRegionLabel = REGIONS.find((item) => item.key === activeRegion)?.label;
+const totalLocations = useMemo(() => REGIONS.reduce((count, region) => count + (galleries[region.key]?.length ?? 0), 0), [galleries]);
+const totalPhotos = useMemo(() => REGIONS.reduce((count, region) => count + (galleries[region.key] ?? []).reduce((inner, gallery) => inner + gallery.photos.length, 0), 0), [galleries]);
+const recentPhotos = useMemo(() => {
+const merged = REGIONS.flatMap((region) => (galleries[region.key] ?? []).flatMap((gallery) => gallery.photos));
+return merged.slice(0, 10);
+}, [galleries]);
 
 return (
 <>
@@ -385,6 +403,36 @@ className="group overflow-hidden rounded-sm border border-cyan-400/20 bg-[#0f1f3
 </button>
 );
 })}
+</div>
+
+<div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
+<div className="rounded-sm border border-cyan-400/20 bg-[#0e1d33]/80 p-6 lg:col-span-1">
+<div className="text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Overview</div>
+<div className="mt-3 text-3xl font-serif text-cyan-100">Gallery</div>
+<div className="mt-4 text-sm uppercase tracking-[0.22em] text-cyan-300/70">
+{totalLocations} locations · {totalPhotos} photos
+</div>
+<div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">
+Choose China, Worldwide, or Family to browse folders.
+</div>
+</div>
+
+<div className="overflow-x-auto rounded-sm border border-cyan-400/20 bg-[#0e1d33]/60 p-4 lg:col-span-2 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
+<div className="mb-3 text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Recent Figures</div>
+{recentPhotos.length === 0 ? (
+<div className="flex min-h-[130px] items-center justify-center text-xs uppercase tracking-[0.25em] text-cyan-300/50">
+No photos yet
+</div>
+) : (
+<div className="flex min-w-max gap-3">
+{recentPhotos.map((photo) => (
+<div key={photo.src} className="h-28 w-28 shrink-0 overflow-hidden rounded-sm border border-cyan-400/20 bg-black/30 sm:h-32 sm:w-32">
+<img src={photo.src} alt={photo.alt} className="h-full w-full object-cover" />
+</div>
+))}
+</div>
+)}
+</div>
 </div>
 </div>
 </main>
@@ -483,7 +531,8 @@ export async function getStaticProps() {
 const photosDir = path.join(process.cwd(), 'public', 'images', 'photos');
 const galleries = {
 china: [],
-worldwide: []
+worldwide: [],
+family: []
 };
 
 if (fs.existsSync(photosDir)) {
