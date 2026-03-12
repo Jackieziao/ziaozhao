@@ -395,26 +395,27 @@ export default function Home({ galleries, blogs }) {
                       <div className="mt-4 text-sm uppercase tracking-[0.22em] text-cyan-300/70">
                         {totalLocations} locations  {totalPhotos} photos
                       </div>
-                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">These are all I remember and record like this.</div>
+                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">Every frame is a memory, and every memory is a quiet love letter.</div>
                     </div>
 
-                    <div className="overflow-x-auto rounded-sm border border-cyan-400/20 bg-[#0e1d33]/60 p-4 lg:col-span-2 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
-                      <div className="mb-3 text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Recent Figures (Latest First)</div>
-                      {recentPhotos.length === 0 ? (
-                        <div className="flex min-h-[130px] items-center justify-center text-xs uppercase tracking-[0.25em] text-cyan-300/50">No photos yet</div>
-                      ) : (
-                        <div className="flex min-w-max gap-3">
-                          {recentPhotos.map((photo) => (
-                            <div key={photo.src} className="h-28 w-28 shrink-0 overflow-hidden rounded-sm border border-cyan-400/20 bg-[#10243d] sm:h-32 sm:w-32">
-                              <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#10243d] object-cover" />
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      <div className="mt-4 flex justify-end">
-                        <div className="rounded-sm border border-cyan-400/25 bg-[#0b1b30]/80 px-3 py-2 text-[10px] uppercase tracking-[0.25em] text-cyan-300/70">
-                          Latest Update: {latestUpdateText || 'N/A'}
-                        </div>
+                    <div className="space-y-3 lg:col-span-2">
+                      <div className="overflow-x-auto rounded-sm border border-cyan-400/20 bg-[#0e1d33]/60 p-4 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
+                        <div className="mb-3 text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Recent Figures (Latest First)</div>
+                        {recentPhotos.length === 0 ? (
+                          <div className="flex min-h-[130px] items-center justify-center text-xs uppercase tracking-[0.25em] text-cyan-300/50">No photos yet</div>
+                        ) : (
+                          <div className="flex min-w-max gap-3">
+                            {recentPhotos.map((photo) => (
+                              <div key={photo.src} className="h-28 w-28 shrink-0 overflow-hidden rounded-sm border border-cyan-400/20 bg-[#10243d] sm:h-32 sm:w-32">
+                                <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#10243d] object-cover" />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="rounded-sm border border-cyan-400/25 bg-[#0b1b30]/80 px-4 py-3 text-[10px] uppercase tracking-[0.25em] text-cyan-300/70">
+                        Latest Update: {latestUpdateText || 'N/A'}
                       </div>
                     </div>
                   </div>
