@@ -1,8 +1,10 @@
-export function seoGenerateMetaTags(page, site) {
+export function seoGenerateMetaTags(page = {}, site = {}) {
     let pageMetaTags = {};
+    const defaultMetaTags = Array.isArray(site?.defaultMetaTags) ? site.defaultMetaTags : [];
+    const seoMetaTags = Array.isArray(page?.seo?.metaTags) ? page.seo.metaTags : [];
 
-    if (site.defaultMetaTags?.length) {
-        site.defaultMetaTags.forEach((metaTag) => {
+    if (defaultMetaTags.length) {
+        defaultMetaTags.forEach((metaTag) => {
             pageMetaTags[metaTag.property] = metaTag.content;
         });
     }
@@ -16,14 +18,14 @@ export function seoGenerateMetaTags(page, site) {
         ...(ogImage && { 'og:image': ogImage })
     };
 
-    if (page.seo?.metaTags?.length) {
-        page.seo?.metaTags.forEach((metaTag) => {
+    if (seoMetaTags.length) {
+        seoMetaTags.forEach((metaTag) => {
             pageMetaTags[metaTag.property] = metaTag.content;
         });
     }
 
     let metaTags = [];
-    Object.keys(pageMetaTags).forEach((key) => {
+    Object.keys(pageMetaTags ?? {}).forEach((key) => {
         if (pageMetaTags[key] !== null) {
             metaTags.push({
                 property: key,
@@ -37,17 +39,17 @@ export function seoGenerateMetaTags(page, site) {
 }
 
 export function seoGenerateTitle(page, site) {
-    let title = page.seo?.metaTitle ? page.seo?.metaTitle : page.title;
-    if (site.titleSuffix && page.seo?.addTitleSuffix !== false) {
+    let title = page?.seo?.metaTitle ? page.seo.metaTitle : page?.title;
+    if (title && site?.titleSuffix && page?.seo?.addTitleSuffix !== false) {
         title = `${title} - ${site.titleSuffix}`;
     }
-    return title;
+    return title || null;
 }
 
-export function seoGenerateMetaDescription(page, site) {
+export function seoGenerateMetaDescription(page) {
     let metaDescription = null;
     // Blog posts use the exceprt as the default meta description
-    if (page.__metadata.modelName === 'PostLayout') {
+    if (page?.__metadata?.modelName === 'PostLayout') {
         metaDescription = page.excerpt;
     }
     // page metaDescription field overrides all others
@@ -57,14 +59,14 @@ export function seoGenerateMetaDescription(page, site) {
     return metaDescription;
 }
 
-export function seoGenerateOgImage(page, site) {
+export function seoGenerateOgImage(page = {}, site = {}) {
     let ogImage = null;
     // Use the sites default og:image field
     if (site.defaultSocialImage) {
         ogImage = site.defaultSocialImage;
     }
     // Blog posts use the featuredImage as the default og:image
-    if (page.__metadata.modelName === 'PostLayout') {
+    if (page?.__metadata?.modelName === 'PostLayout') {
         if (page.featuredImage?.url) {
             ogImage = page.featuredImage.url;
         }
@@ -75,7 +77,7 @@ export function seoGenerateOgImage(page, site) {
     }
 
     // ogImage should use an absolute URL. Get the Netlify domain URL from the Netlify environment variable process.env.URL
-    const domainUrl = site.env?.URL ? site.env.URL : null;
+    const domainUrl = site?.env?.URL ? site.env.URL : null;
 
     if (ogImage) {
         if (domainUrl) {

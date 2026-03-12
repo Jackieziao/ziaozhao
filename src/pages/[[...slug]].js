@@ -49,6 +49,9 @@ export async function getStaticProps({ params }) {
     const data = allContent();
     const urlPath = '/' + (params.slug || []).join('/');
     const props = await resolveStaticProps(urlPath, data);
+    if (!props?.page || !props?.site) {
+        return { notFound: true };
+    }
     return { props };
 }
 

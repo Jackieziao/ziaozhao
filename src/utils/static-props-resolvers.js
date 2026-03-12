@@ -12,7 +12,12 @@ import {
 export function resolveStaticProps(urlPath, data) {
     // get root path of paged path: /blog/page/2 => /blog
     const rootUrlPath = getRootPagePath(urlPath);
-    const { __metadata, ...rest } = data.pages.find((page) => page.__metadata.urlPath === rootUrlPath);
+    const matchingPage = data.pages.find((page) => page.__metadata.urlPath === rootUrlPath);
+    if (!matchingPage) {
+        return null;
+    }
+
+    const { __metadata, ...rest } = matchingPage;
     const props = {
         page: {
             __metadata: {
@@ -22,7 +27,7 @@ export function resolveStaticProps(urlPath, data) {
             },
             ...rest
         },
-        ...data.props
+        ...(data.props ?? {})
     };
     return mapDeepAsync(
         props,

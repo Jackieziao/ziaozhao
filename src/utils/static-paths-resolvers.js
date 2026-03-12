@@ -7,12 +7,15 @@ export function resolveStaticPaths({ pages, objects }) {
         }
         const objectType = page.__metadata?.modelName;
         const pageUrlPath = page.__metadata?.urlPath;
+        if (!pageUrlPath) {
+            return paths;
+        }
         if (objectType && StaticPathsResolvers[objectType]) {
             const resolver = StaticPathsResolvers[objectType];
             return paths.concat(resolver(page, objects));
         }
         return paths.concat(pageUrlPath);
-    }, []);
+    }, []).filter(Boolean);
 }
 
 const StaticPathsResolvers = {

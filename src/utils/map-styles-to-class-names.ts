@@ -153,9 +153,16 @@ const TAILWIND_MAP = {
     }
 };
 
-export function mapStylesToClassNames(styles: Record<string, any>) {
+export function mapStylesToClassNames(styles: Record<string, any> | null | undefined) {
+    if (!styles || typeof styles !== 'object') {
+        return '';
+    }
+
     return Object.entries(styles)
         .map(([prop, value]) => {
+            if (value == null) {
+                return '';
+            }
             if (prop in TAILWIND_MAP) {
                 if (typeof TAILWIND_MAP[prop] === 'function') {
                     return TAILWIND_MAP[prop](value);
@@ -168,5 +175,6 @@ export function mapStylesToClassNames(styles: Record<string, any>) {
                 return value;
             }
         })
+        .filter(Boolean)
         .join(' ');
 }
