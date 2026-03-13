@@ -208,14 +208,23 @@ function Lightbox({ photos, index, onClose, onPrev, onNext }) {
 function NetworkBackground() {
   return (
     <div className="absolute inset-0" aria-hidden="true">
-      <img src="/images/hero-photography-background.svg" alt="" className="h-full w-full object-cover" />
+      <img
+        src="/images/hero-coastal-camera.png"
+        alt=""
+        className="h-full w-full object-cover"
+        onError={(event) => {
+          event.currentTarget.onerror = null;
+          event.currentTarget.src = '/images/hero-photography-background.svg';
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-[#10131a]/62 to-[#0a0d12]/92" />
     </div>
   );
 }
 
 function TopButtons({ activeSection, onSelectSection }) {
   return (
-    <div className="border-b border-blue-500/20 bg-[#0f1b2e]/90 px-4 py-4 sm:px-6">
+    <div className="border-b border-amber-200/20 bg-[#130f0f]/78 px-4 py-4 backdrop-blur-sm sm:px-6">
       <div className="flex flex-wrap items-center justify-center gap-3">
         {NAV_SECTIONS.map((item) => (
           <button
@@ -224,8 +233,8 @@ function TopButtons({ activeSection, onSelectSection }) {
             onClick={() => onSelectSection(item.key)}
             className={`rounded-md border px-4 py-2 text-xs uppercase tracking-[0.3em] transition ${
               activeSection === item.key
-                ? 'border-cyan-300 bg-cyan-400/15 text-cyan-100'
-                : 'border-cyan-500/35 bg-transparent text-cyan-300/70 hover:text-cyan-100'
+                ? 'border-amber-200/75 bg-amber-200/18 text-amber-50'
+                : 'border-stone-300/35 bg-black/10 text-stone-200/75 hover:border-amber-200/55 hover:text-amber-100'
             }`}
           >
             {item.label}
@@ -294,20 +303,20 @@ export default function Home({ galleries, blogs }) {
         <link rel="icon" href="/images/favicon.svg" />
       </Head>
 
-      <div className="relative min-h-screen px-3 py-6 text-white sm:px-6 lg:px-8" style={{ background: '#071120' }}>
+      <div className="relative min-h-screen px-3 py-6 text-white sm:px-6 lg:px-8" style={{ background: '#070b10' }}>
         <NetworkBackground />
         <div className="relative z-10">
-          <div className="mx-auto max-w-7xl overflow-hidden border border-blue-500/30 bg-[#1a2844] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
-            <div className="border-b border-blue-500/20 bg-gradient-to-b from-[#1a3a5a] to-[#0f1b2e] px-6 py-6 text-center">
-              <p className="text-xs uppercase tracking-[0.45em] text-cyan-300/50">From My Eyes, I See The World Like This</p>
-              <h1 className="mt-2 font-serif text-3xl uppercase tracking-[0.2em] text-cyan-200 sm:text-4xl">Photolux Style Gallery</h1>
-              <p className="mt-3 text-sm uppercase tracking-[0.35em] text-cyan-400/60">{headingLabel}</p>
+          <div className="mx-auto max-w-7xl overflow-hidden border border-stone-200/30 bg-[#0d131b]/72 shadow-[0_26px_70px_rgba(0,0,0,0.7)] backdrop-blur-sm">
+            <div className="border-b border-stone-200/20 bg-gradient-to-b from-[#1d1612]/88 via-[#16161a]/78 to-[#101319]/85 px-6 py-6 text-center">
+              <p className="text-xs uppercase tracking-[0.45em] text-amber-100/65">From My Eyes, I See The World Like This</p>
+              <h1 className="mt-2 font-serif text-3xl uppercase tracking-[0.2em] text-stone-100 sm:text-4xl">Photolux Style Gallery</h1>
+              <p className="mt-3 text-sm uppercase tracking-[0.35em] text-amber-100/70">{headingLabel}</p>
             </div>
 
             {lightboxIndex === null ? <TopButtons activeSection={activeSection} onSelectSection={openSection} /> : null}
 
             {activeSection === 'gallery' ? (
-              <main className="bg-gradient-to-b from-[#152a42] to-[#0f1b2e] px-4 py-8 sm:px-6 sm:py-10">
+              <main className="bg-gradient-to-b from-[#17161a]/90 via-[#121318]/88 to-[#0d1117]/92 px-4 py-8 sm:px-6 sm:py-10">
                 <div className="mx-auto max-w-5xl">
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     {[
@@ -326,17 +335,17 @@ export default function Home({ galleries, blogs }) {
                           key={section.key}
                           type="button"
                           onClick={() => openSection(section.key)}
-                          className="group overflow-hidden rounded-sm border border-cyan-400/20 bg-[#0f1f35]/80 text-left transition hover:border-cyan-300/60"
+                          className="group overflow-hidden rounded-sm border border-stone-200/25 bg-[#17161b]/76 text-left transition hover:border-amber-200/60"
                         >
-                          <div className="aspect-[16/8] bg-gradient-to-r from-cyan-700/20 via-cyan-400/10 to-transparent p-6">
-                            <div className="text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">{section.kind}</div>
-                            <div className="mt-3 font-serif text-4xl text-cyan-100">{section.label}</div>
+                          <div className="aspect-[16/8] bg-gradient-to-r from-amber-300/22 via-orange-200/10 to-transparent p-6">
+                            <div className="text-[10px] uppercase tracking-[0.35em] text-amber-100/65">{section.kind}</div>
+                            <div className="mt-3 font-serif text-4xl text-stone-100">{section.label}</div>
                             {showLocationCount ? (
-                              <div className="mt-4 text-xs uppercase tracking-[0.25em] text-cyan-300/70">
+                              <div className="mt-4 text-xs uppercase tracking-[0.25em] text-stone-200/75">
                                 {locationCount} {section.key === 'blog' ? 'post' : 'location'}{locationCount === 1 ? '' : 's'}
                               </div>
                             ) : null}
-                            <div className={`${showLocationCount ? 'mt-2' : 'mt-4'} text-xs uppercase tracking-[0.25em] text-cyan-300/70`}>
+                            <div className={`${showLocationCount ? 'mt-2' : 'mt-4'} text-xs uppercase tracking-[0.25em] text-stone-200/75`}>
                               {photoCount} figure{photoCount === 1 ? '' : 's'}
                             </div>
                           </div>
@@ -346,32 +355,32 @@ export default function Home({ galleries, blogs }) {
                   </div>
 
                   <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
-                    <div className="rounded-sm border border-cyan-400/20 bg-[#0e1d33]/80 p-6 lg:col-span-1">
-                      <div className="text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Overview</div>
-                      <div className="mt-3 text-3xl font-serif text-cyan-100">Gallery</div>
-                      <div className="mt-4 text-sm uppercase tracking-[0.22em] text-cyan-300/70">
+                    <div className="rounded-sm border border-stone-200/20 bg-[#16151b]/80 p-6 lg:col-span-1">
+                      <div className="text-[10px] uppercase tracking-[0.35em] text-amber-100/65">Overview</div>
+                      <div className="mt-3 text-3xl font-serif text-stone-100">Gallery</div>
+                      <div className="mt-4 text-sm uppercase tracking-[0.22em] text-stone-200/80">
                         {totalLocations} locations  {totalPhotos} photos
                       </div>
-                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-cyan-400/60">Every frame is a memory, and every memory is a quiet love letter.</div>
+                      <div className="mt-4 text-xs uppercase tracking-[0.22em] text-amber-100/70">Every frame is a memory, and every memory is a quiet love letter.</div>
                     </div>
 
                     <div className="space-y-3 lg:col-span-2">
-                      <div className="overflow-x-auto rounded-sm border border-cyan-400/20 bg-[#0e1d33]/60 p-4 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
-                        <div className="mb-3 text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Recent Figures (Latest First)</div>
+                      <div className="overflow-x-auto rounded-sm border border-stone-200/20 bg-[#15161e]/66 p-4 [scrollbar-color:#f59e0b22_transparent] [scrollbar-width:thin]">
+                        <div className="mb-3 text-[10px] uppercase tracking-[0.35em] text-amber-100/65">Recent Figures (Latest First)</div>
                         {recentPhotos.length === 0 ? (
-                          <div className="flex min-h-[130px] items-center justify-center text-xs uppercase tracking-[0.25em] text-cyan-300/50">No photos yet</div>
+                          <div className="flex min-h-[130px] items-center justify-center text-xs uppercase tracking-[0.25em] text-stone-300/55">No photos yet</div>
                         ) : (
                           <div className="flex min-w-max gap-3">
                             {recentPhotos.map((photo) => (
-                              <div key={photo.src} className="h-28 w-28 shrink-0 overflow-hidden rounded-sm border border-cyan-400/20 bg-[#10243d] sm:h-32 sm:w-32">
-                                <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#10243d] object-cover" />
+                              <div key={photo.src} className="h-28 w-28 shrink-0 overflow-hidden rounded-sm border border-stone-200/20 bg-[#1a1a1f] sm:h-32 sm:w-32">
+                                <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#1a1a1f] object-cover" />
                               </div>
                             ))}
                           </div>
                         )}
                       </div>
 
-                      <div className="rounded-sm border border-cyan-400/25 bg-[#0b1b30]/80 px-4 py-3 text-[10px] uppercase tracking-[0.25em] text-cyan-300/70">
+                      <div className="rounded-sm border border-stone-200/25 bg-[#15151b]/82 px-4 py-3 text-[10px] uppercase tracking-[0.25em] text-amber-100/75">
                         Latest Update: {latestUpdateText || 'N/A'}
                       </div>
                     </div>
@@ -379,29 +388,29 @@ export default function Home({ galleries, blogs }) {
                 </div>
               </main>
             ) : activeSection === 'blog' ? (
-              <main className="bg-gradient-to-b from-[#132035] to-[#0f1b2e] px-4 py-6 sm:px-6 sm:py-8">
+              <main className="bg-gradient-to-b from-[#17161a]/90 via-[#121318]/88 to-[#0d1117]/92 px-4 py-6 sm:px-6 sm:py-8">
                 {blogs.length === 0 ? (
-                  <div className="flex min-h-[45vh] items-center justify-center border border-dashed border-cyan-400/25 bg-blue-950/20 p-10 text-center text-sm uppercase tracking-[0.3em] text-cyan-300/60">
+                  <div className="flex min-h-[45vh] items-center justify-center border border-dashed border-stone-200/30 bg-black/20 p-10 text-center text-sm uppercase tracking-[0.3em] text-stone-200/70">
                     Add blog posts in content/data/uploaded blogs/*.json
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
                     {blogs.map((blog) => (
-                      <article key={blog.id} className="overflow-hidden rounded-sm border border-cyan-400/20 bg-[#0e1d33]/70">
+                      <article key={blog.id} className="overflow-hidden rounded-sm border border-stone-200/20 bg-[#16151c]/74">
                         {blog.images?.[0] ? (
-                          <div className="h-[260px] overflow-hidden bg-[#10243d]">
-                            <img src={blog.images[0]} alt={blog.title} className="h-full w-full bg-[#10243d] object-cover" />
+                          <div className="h-[260px] overflow-hidden bg-[#1a1a1f]">
+                            <img src={blog.images[0]} alt={blog.title} className="h-full w-full bg-[#1a1a1f] object-cover" />
                           </div>
                         ) : null}
                         <div className="p-5">
-                          <div className="text-[10px] uppercase tracking-[0.35em] text-cyan-300/55">Blog</div>
-                          <h2 className="mt-2 font-serif text-2xl text-cyan-100">{blog.title}</h2>
-                          <p className="mt-3 text-sm leading-relaxed text-cyan-100/75">{blog.paragraph}</p>
+                          <div className="text-[10px] uppercase tracking-[0.35em] text-amber-100/65">Blog</div>
+                          <h2 className="mt-2 font-serif text-2xl text-stone-100">{blog.title}</h2>
+                          <p className="mt-3 text-sm leading-relaxed text-stone-100/78">{blog.paragraph}</p>
                           {blog.images?.length > 1 ? (
-                            <div className="mt-4 flex gap-2 overflow-x-auto [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
+                            <div className="mt-4 flex gap-2 overflow-x-auto [scrollbar-color:#f59e0b22_transparent] [scrollbar-width:thin]">
                               {blog.images.slice(1).map((src) => (
-                                <div key={`${blog.id}-${src}`} className="h-24 w-24 shrink-0 overflow-hidden rounded-sm border border-cyan-400/20 bg-[#10243d]">
-                                  <img src={src} alt={blog.title} className="h-full w-full bg-[#10243d] object-cover" />
+                                <div key={`${blog.id}-${src}`} className="h-24 w-24 shrink-0 overflow-hidden rounded-sm border border-stone-200/20 bg-[#1a1a1f]">
+                                  <img src={src} alt={blog.title} className="h-full w-full bg-[#1a1a1f] object-cover" />
                                 </div>
                               ))}
                             </div>
@@ -413,33 +422,33 @@ export default function Home({ galleries, blogs }) {
                 )}
               </main>
             ) : !activeGallery ? (
-              <main className="bg-gradient-to-b from-[#152a42] to-[#0f1b2e] px-4 py-4 sm:px-6 sm:py-6">
+              <main className="bg-gradient-to-b from-[#17161a]/90 via-[#121318]/88 to-[#0d1117]/92 px-4 py-4 sm:px-6 sm:py-6">
                 {galleriesInSection.length === 0 ? (
-                  <div className="flex min-h-[50vh] items-center justify-center border border-dashed border-cyan-400/25 bg-blue-950/20 p-10 text-center text-sm uppercase tracking-[0.3em] text-cyan-300/60">
+                  <div className="flex min-h-[50vh] items-center justify-center border border-dashed border-stone-200/30 bg-black/20 p-10 text-center text-sm uppercase tracking-[0.3em] text-stone-200/70">
                     Add location folders inside public/images/photos/{activeSection}/
                   </div>
                 ) : (
-                  <div className="overflow-x-auto pb-3 [scrollbar-color:#22d3ee22_transparent] [scrollbar-width:thin]">
+                  <div className="overflow-x-auto pb-3 [scrollbar-color:#f59e0b22_transparent] [scrollbar-width:thin]">
                     <div className="flex min-w-max gap-4">
                       {galleriesInSection.map((gallery) => (
                         <button
                           key={gallery.id}
                           type="button"
-                          className="group w-[290px] shrink-0 overflow-hidden border border-cyan-400/20 bg-[#0f1f35] text-left transition hover:border-cyan-400/60"
+                          className="group w-[290px] shrink-0 overflow-hidden border border-stone-200/20 bg-[#17161b] text-left transition hover:border-amber-200/65"
                           onClick={() => openGallery(gallery.id)}
                           aria-label={`Open ${gallery.title}`}
                         >
-                          <div className="h-[340px] overflow-hidden bg-[#10243d]">
+                          <div className="h-[340px] overflow-hidden bg-[#1a1a1f]">
                             {gallery.cover ? (
-                              <img src={gallery.cover} alt={gallery.title} className="h-full w-full bg-[#10243d] object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85" />
+                              <img src={gallery.cover} alt={gallery.title} className="h-full w-full bg-[#1a1a1f] object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85" />
                             ) : (
-                              <div className="flex h-full min-h-[260px] items-center justify-center text-5xl text-cyan-400/20">&#128247;</div>
+                              <div className="flex h-full min-h-[260px] items-center justify-center text-5xl text-amber-100/25">&#128247;</div>
                             )}
                           </div>
-                          <div className="border-t border-cyan-400/20 px-4 py-4">
-                            <div className="text-[10px] uppercase tracking-[0.3em] text-cyan-400/50">Location / Gallery</div>
-                            <div className="mt-2 font-serif text-2xl leading-tight text-cyan-100">{gallery.title}</div>
-                            <div className="mt-3 text-xs uppercase tracking-[0.3em] text-cyan-400/70">
+                          <div className="border-t border-stone-200/20 px-4 py-4">
+                            <div className="text-[10px] uppercase tracking-[0.3em] text-amber-100/60">Location / Gallery</div>
+                            <div className="mt-2 font-serif text-2xl leading-tight text-stone-100">{gallery.title}</div>
+                            <div className="mt-3 text-xs uppercase tracking-[0.3em] text-stone-200/75">
                               {gallery.photos.length} photo{gallery.photos.length === 1 ? '' : 's'}
                             </div>
                           </div>
@@ -450,12 +459,12 @@ export default function Home({ galleries, blogs }) {
                 )}
               </main>
             ) : (
-              <main className="bg-gradient-to-b from-[#132035] to-[#0f1b2e] px-4 py-4 sm:px-6 sm:py-6">
-                <div className="mb-5 flex flex-col gap-3 border-b border-cyan-400/15 pb-5 sm:flex-row sm:items-center sm:justify-between">
+              <main className="bg-gradient-to-b from-[#17161a]/90 via-[#121318]/88 to-[#0d1117]/92 px-4 py-4 sm:px-6 sm:py-6">
+                <div className="mb-5 flex flex-col gap-3 border-b border-stone-200/20 pb-5 sm:flex-row sm:items-center sm:justify-between">
                   <button
                     type="button"
                     onClick={closeGallery}
-                    className="inline-flex w-fit items-center gap-3 text-xs uppercase tracking-[0.35em] text-cyan-400/70 transition hover:text-cyan-200"
+                    className="inline-flex w-fit items-center gap-3 text-xs uppercase tracking-[0.35em] text-amber-100/80 transition hover:text-amber-50"
                   >
                     <span className="text-lg leading-none">&#8592;</span>
                     Back To Locations
@@ -466,17 +475,17 @@ export default function Home({ galleries, blogs }) {
                     <button
                       key={photo.src}
                       type="button"
-                      className="group overflow-hidden border border-cyan-400/15 bg-[#0a1420] text-left transition hover:border-cyan-400/50"
+                      className="group overflow-hidden border border-stone-200/20 bg-[#13141a] text-left transition hover:border-amber-200/60"
                       onClick={() => setLightboxIndex(index)}
                       aria-label={`View ${photo.alt}`}
                     >
-                      <div className="h-[320px] overflow-hidden bg-[#10243d]">
-                        <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#10243d] object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85" />
+                      <div className="h-[320px] overflow-hidden bg-[#1a1a1f]">
+                        <img src={photo.src} alt={photo.alt} className="h-full w-full bg-[#1a1a1f] object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-85" />
                       </div>
-                      <div className="border-t border-cyan-400/15 px-4 py-3">
-                        <div className="text-[10px] uppercase tracking-[0.3em] text-cyan-400/50">Figure {index + 1}</div>
-                        <div className="mt-2 font-serif text-xl leading-tight text-cyan-100">{photo.alt}</div>
-                        {photo.details ? <div className="mt-2 text-[11px] uppercase tracking-[0.25em] text-cyan-300/55">{photo.details}</div> : null}
+                      <div className="border-t border-stone-200/20 px-4 py-3">
+                        <div className="text-[10px] uppercase tracking-[0.3em] text-amber-100/60">Figure {index + 1}</div>
+                        <div className="mt-2 font-serif text-xl leading-tight text-stone-100">{photo.alt}</div>
+                        {photo.details ? <div className="mt-2 text-[11px] uppercase tracking-[0.25em] text-stone-200/60">{photo.details}</div> : null}
                       </div>
                     </button>
                   ))}
